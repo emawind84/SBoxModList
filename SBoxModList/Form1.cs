@@ -1,30 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
-using System.Xml;
-using System.Xml.XPath;
-using System.Net;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml.XPath;
 namespace SBoxModList
 {
 
-    public class WebTimeout : WebClient
-    {
-        protected override WebRequest GetWebRequest(Uri uri)
-        {
-            WebRequest w = base.GetWebRequest(uri);
-            w.Timeout = 5000;
-            return w;
-        }
-    }
     public partial class Form1 : Form
     {
         
@@ -223,9 +208,38 @@ namespace SBoxModList
             }
         }
 
-        
+        private void ForumUrlButtonClick(object sender, EventArgs e)
+        {
+            txtOutRAW.Clear();
+            txtOut.Clear();
+            foreach (ModInfo MI in ModList)
+            {
+                txtOutRAW.AppendText(MI.ID + "\r\n");
+                StringBuilder tOut = new StringBuilder();
+
+                tOut.Append("[URL=")
+                    .Append(MI.URL)
+                    .Append("]")
+                    .Append(MI.title)
+                    .Append("[/URL]")
+                    .Append(Environment.NewLine);
+                txtOut.AppendText(tOut.ToString());
+            }
+        }
 
         
 
+        
+
+    }
+
+    public class WebTimeout : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri uri)
+        {
+            WebRequest w = base.GetWebRequest(uri);
+            w.Timeout = 5000;
+            return w;
+        }
     }
 }

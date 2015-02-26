@@ -36,11 +36,14 @@
             this.btnSName = new System.Windows.Forms.Button();
             this.btnSID = new System.Windows.Forms.Button();
             this.lblLoad = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.forumUrlButton = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(97, 28);
+            this.btnOpen.Location = new System.Drawing.Point(12, 23);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 1;
@@ -51,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 71);
+            this.label1.Location = new System.Drawing.Point(12, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 2;
@@ -60,7 +63,7 @@
             // txtOutRAW
             // 
             this.txtOutRAW.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtOutRAW.Location = new System.Drawing.Point(23, 87);
+            this.txtOutRAW.Location = new System.Drawing.Point(12, 76);
             this.txtOutRAW.Name = "txtOutRAW";
             this.txtOutRAW.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.txtOutRAW.Size = new System.Drawing.Size(262, 179);
@@ -86,7 +89,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(113, 308);
+            this.label2.Location = new System.Drawing.Point(9, 311);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 5;
@@ -94,7 +97,7 @@
             // 
             // btnSName
             // 
-            this.btnSName.Location = new System.Drawing.Point(196, 287);
+            this.btnSName.Location = new System.Drawing.Point(216, 3);
             this.btnSName.Name = "btnSName";
             this.btnSName.Size = new System.Drawing.Size(102, 23);
             this.btnSName.TabIndex = 6;
@@ -104,7 +107,7 @@
             // 
             // btnSID
             // 
-            this.btnSID.Location = new System.Drawing.Point(323, 287);
+            this.btnSID.Location = new System.Drawing.Point(135, 3);
             this.btnSID.Name = "btnSID";
             this.btnSID.Size = new System.Drawing.Size(75, 23);
             this.btnSID.TabIndex = 7;
@@ -115,19 +118,40 @@
             // lblLoad
             // 
             this.lblLoad.AutoSize = true;
-            this.lblLoad.Location = new System.Drawing.Point(209, 33);
+            this.lblLoad.Location = new System.Drawing.Point(110, 28);
             this.lblLoad.Name = "lblLoad";
             this.lblLoad.Size = new System.Drawing.Size(0, 13);
             this.lblLoad.TabIndex = 8;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Controls.Add(this.btnSName);
+            this.flowLayoutPanel1.Controls.Add(this.btnSID);
+            this.flowLayoutPanel1.Controls.Add(this.forumUrlButton);
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(157, 293);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 28);
+            this.flowLayoutPanel1.TabIndex = 9;
+            // 
+            // forumUrlButton
+            // 
+            this.forumUrlButton.Location = new System.Drawing.Point(54, 3);
+            this.forumUrlButton.Name = "forumUrlButton";
+            this.forumUrlButton.Size = new System.Drawing.Size(75, 23);
+            this.forumUrlButton.TabIndex = 8;
+            this.forumUrlButton.Text = "Forum URL";
+            this.forumUrlButton.UseVisualStyleBackColor = true;
+            this.forumUrlButton.Click += new System.EventHandler(this.ForumUrlButtonClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 587);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblLoad);
-            this.Controls.Add(this.btnSID);
-            this.Controls.Add(this.btnSName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtOut);
             this.Controls.Add(this.txtOutRAW);
@@ -135,6 +159,7 @@
             this.Controls.Add(this.btnOpen);
             this.Name = "Form1";
             this.Text = "SBCModView";
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +175,8 @@
         private System.Windows.Forms.Button btnSName;
         private System.Windows.Forms.Button btnSID;
         private System.Windows.Forms.Label lblLoad;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button forumUrlButton;
     }
 }
 

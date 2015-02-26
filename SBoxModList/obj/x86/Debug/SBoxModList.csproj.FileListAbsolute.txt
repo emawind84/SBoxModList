@@ -5,3 +5,11 @@ D:\Software Projects\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.Propertie
 D:\Software Projects\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.csproj.GenerateResource.Cache
 D:\Software Projects\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.exe
 D:\Software Projects\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.pdb
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.exe
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.pdb
+D:\documents\GitHub\SBoxModList\SBoxModList\bin\Debug\SBoxModList.exe
+D:\documents\GitHub\SBoxModList\SBoxModList\bin\Debug\SBoxModList.pdb
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.csprojResolveAssemblyReference.cache
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.Form1.resources
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.Properties.Resources.resources
+D:\documents\GitHub\SBoxModList\SBoxModList\obj\x86\Debug\SBoxModList.csproj.GenerateResource.Cache
