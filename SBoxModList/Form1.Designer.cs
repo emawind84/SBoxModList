@@ -38,6 +38,7 @@
             this.lblLoad = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.forumUrlButton = new System.Windows.Forms.Button();
+            this.reloadButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             this.btnOpen.TabIndex = 1;
             this.btnOpen.Text = "Open File";
             this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.button1_Click);
+            this.btnOpen.Click += new System.EventHandler(this.loadModFileClick);
             // 
             // label1
             // 
@@ -97,7 +98,7 @@
             // 
             // btnSName
             // 
-            this.btnSName.Location = new System.Drawing.Point(216, 3);
+            this.btnSName.Location = new System.Drawing.Point(252, 3);
             this.btnSName.Name = "btnSName";
             this.btnSName.Size = new System.Drawing.Size(102, 23);
             this.btnSName.TabIndex = 6;
@@ -107,7 +108,7 @@
             // 
             // btnSID
             // 
-            this.btnSID.Location = new System.Drawing.Point(135, 3);
+            this.btnSID.Location = new System.Drawing.Point(171, 3);
             this.btnSID.Name = "btnSID";
             this.btnSID.Size = new System.Drawing.Size(75, 23);
             this.btnSID.TabIndex = 7;
@@ -118,7 +119,7 @@
             // lblLoad
             // 
             this.lblLoad.AutoSize = true;
-            this.lblLoad.Location = new System.Drawing.Point(110, 28);
+            this.lblLoad.Location = new System.Drawing.Point(174, 28);
             this.lblLoad.Name = "lblLoad";
             this.lblLoad.Size = new System.Drawing.Size(0, 13);
             this.lblLoad.TabIndex = 8;
@@ -129,21 +130,32 @@
             this.flowLayoutPanel1.Controls.Add(this.btnSName);
             this.flowLayoutPanel1.Controls.Add(this.btnSID);
             this.flowLayoutPanel1.Controls.Add(this.forumUrlButton);
+            this.flowLayoutPanel1.Controls.Add(this.reloadButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(157, 293);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(121, 293);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 28);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(357, 28);
             this.flowLayoutPanel1.TabIndex = 9;
             // 
             // forumUrlButton
             // 
-            this.forumUrlButton.Location = new System.Drawing.Point(54, 3);
+            this.forumUrlButton.Location = new System.Drawing.Point(90, 3);
             this.forumUrlButton.Name = "forumUrlButton";
             this.forumUrlButton.Size = new System.Drawing.Size(75, 23);
             this.forumUrlButton.TabIndex = 8;
             this.forumUrlButton.Text = "Forum URL";
             this.forumUrlButton.UseVisualStyleBackColor = true;
-            this.forumUrlButton.Click += new System.EventHandler(this.ForumUrlButtonClick);
+            this.forumUrlButton.Click += new System.EventHandler(this.forumUrlButtonClick);
+            // 
+            // reloadButton
+            // 
+            this.reloadButton.Location = new System.Drawing.Point(9, 3);
+            this.reloadButton.Name = "reloadButton";
+            this.reloadButton.Size = new System.Drawing.Size(75, 23);
+            this.reloadButton.TabIndex = 10;
+            this.reloadButton.Text = "Reload";
+            this.reloadButton.UseVisualStyleBackColor = true;
+            this.reloadButton.Click += new System.EventHandler(this.reloadButtonClick);
             // 
             // Form1
             // 
@@ -177,6 +189,7 @@
         private System.Windows.Forms.Label lblLoad;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button forumUrlButton;
+        private System.Windows.Forms.Button reloadButton;
     }
 }
 

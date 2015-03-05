@@ -15,7 +15,7 @@ namespace SBoxModList
         
         OpenFileDialog ofd = new OpenFileDialog();
         WebTimeout web = new WebTimeout();
-        XPathDocument SBCFile;
+        XPathDocument sbcFile;
         XPathNavigator nav;
         XPathNodeIterator modListIt;
         
@@ -31,10 +31,10 @@ namespace SBoxModList
             public String title;
             public String URL;
         }
-        public List<ModInfo> ModList = new List<ModInfo>();
+        public List<ModInfo> modList = new List<ModInfo>();
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void loadModFileClick(object sender, EventArgs e)
         {
 
 
@@ -48,8 +48,8 @@ namespace SBoxModList
                     lblLoad.Text = "Loading: ";
                     String fName = ofd.FileName;
                     String sFName = ofd.FileName;
-                    SBCFile = new XPathDocument(fName);
-                    nav = SBCFile.CreateNavigator();
+                    sbcFile = new XPathDocument(fName);
+                    nav = sbcFile.CreateNavigator();
                     modListIt = nav.Select("//ModItem/PublishedFileId");
                     
                     /*
@@ -64,34 +64,11 @@ namespace SBoxModList
                     }
                     */
 
-
-
-                    ModList.Clear();
-
+                    modList.Clear();
                     while (modListIt.MoveNext())
                     {
-                        ModInfo modInfo = new ModInfo();
-                        modInfo.ID = modListIt.Current.InnerXml;
-                        modInfo.URL = "http://steamcommunity.com/sharedfiles/filedetails/?id=" + modInfo.ID;
-                        int failcount = 0;
-                        do{
-                        try
-                        {
-                            
-                            string workshopPage = web.DownloadString(modInfo.URL);
-                            System.Threading.Thread.Sleep(500);
-                            modInfo.title = Regex.Match(workshopPage, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                            modInfo.title = modInfo.title.Replace("Steam Workshop :: ", "");
-                            if (failcount > 0) failcount = 0;
-                            
-                        }
-                        catch (Exception)
-                        {
-                            modInfo.title = "URL Timed Out";
-                            failcount++;
-                        }
-                        }while(failcount>0&&failcount<4);
-                        ModList.Add(modInfo);
+                        ModInfo modInfo = loadModInfo(modListIt.Current.InnerXml);
+                        modList.Add(modInfo);
                         lblLoad.Text += "|";
                         if(lblLoad.Text.TakeWhile(c => c == '|').Count()>10)
                         {
@@ -101,24 +78,19 @@ namespace SBoxModList
                         lblLoad.Refresh();
                         Application.DoEvents();
                         System.Threading.Thread.Sleep(500);
-                        
-                        
-                        
-
-
                     }
 
-                    ModList = ModList.OrderBy(m => m.ID).ToList();
+                    modList = modList.OrderBy(m => m.ID).ToList();
 
                     txtOutRAW.Clear();
                     txtOut.Clear();
-                    foreach (ModInfo MI in ModList)
+                    foreach (ModInfo mi in modList)
                     {
-                        txtOutRAW.AppendText(MI.ID + "\r\n");
+                        txtOutRAW.AppendText(mi.ID + "\r\n");
                         StringBuilder tOut = new StringBuilder();
-                        tOut.Append("ModID: " + MI.ID + "       ");
-                        tOut.Append("ModName: " + MI.title + "      ");
-                        tOut.Append("Workshop URL: " + MI.URL + "\r\n");
+                        tOut.Append("ModID: " + mi.ID + "       ");
+                        tOut.Append("ModName: " + mi.title + "      ");
+                        tOut.Append("Workshop URL: " + mi.URL + "\r\n");
                         txtOut.AppendText(tOut.ToString());
                     }
                     lblLoad.Text = "File Loaded";
@@ -148,25 +120,13 @@ namespace SBoxModList
                     }
 
                     */
-
-
-
-
-
-
-
                 }
-
                 else { txtOutRAW.Text = "Unable To Read File"; }
-                     
-
             }
             catch (Exception)
             {
                 txtOutRAW.Text = "An Unknown Error Has Occurred";
             }
-      
-
         }
 
         private void txtOut_LinkClicked(Object sender, LinkClickedEventArgs e)
@@ -174,62 +134,131 @@ namespace SBoxModList
             Process.Start(e.LinkText);
         }
 
+        /// <summary>
+        /// SORT BY NAME AND LOAD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSName_Click(object sender, EventArgs e)
         {
-            ModList = ModList.OrderBy(m => m.title).ToList();
-
-            txtOutRAW.Clear();
-            txtOut.Clear();
-            foreach (ModInfo MI in ModList)
-            {
-                txtOutRAW.AppendText(MI.ID + "\r\n");
-                StringBuilder tOut = new StringBuilder();
-                tOut.Append("ModName: " + MI.title + "      ");
-                tOut.Append("ModID: " + MI.ID + "       ");
-                tOut.Append("Workshop URL: " + MI.URL + "\r\n");
-                txtOut.AppendText(tOut.ToString());
-            }
+            modList = modList.OrderBy(m => m.title).ToList();
+            printLongView();
         }
 
+        /// <summary>
+        /// SORT BY ID AND LOAD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSID_Click(object sender, EventArgs e)
         {
-            ModList = ModList.OrderBy(m => m.ID).ToList();
+            modList = modList.OrderBy(m => m.ID).ToList();
+            printLongView();
+        }
 
+        /// <summary>
+        /// FORUM VIEW
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void forumUrlButtonClick(object sender, EventArgs e)
+        {
+            printForumView();
+        }
+
+        /// <summary>
+        /// GET MOD INFO FROM STEAM
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private ModInfo loadModInfo(string id)
+        {
+            ModInfo modInfo = new ModInfo();
+            modInfo.ID = id;
+            modInfo.URL = "http://steamcommunity.com/sharedfiles/filedetails/?id=" + modInfo.ID;
+            int failcount = 0;
+            do
+            {
+                try
+                {
+                    string workshopPage = web.DownloadString(modInfo.URL);
+                    System.Threading.Thread.Sleep(500);
+                    modInfo.title = Regex.Match(workshopPage, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    modInfo.title = modInfo.title.Replace("Steam Workshop :: ", "");
+                    if (failcount > 0) failcount = 0;
+
+                }
+                catch (Exception)
+                {
+                    modInfo.title = "URL Timed Out";
+                    failcount++;
+                }
+            } while (failcount > 0 && failcount < 4);
+
+            return modInfo;
+        }
+
+        /// <summary>
+        /// RELOAD MOD LIST
+        /// </summary>
+        private void reloadModList() {
+            txtOut.Clear();
+            lblLoad.Text = "Reloading: ";
+            modList.Clear();
+            string[] lines = txtOutRAW.Lines;
+            for (var i = 0; i < lines.Length; i++) {
+                ModInfo modInfo = loadModInfo(lines[i]);
+                modList.Add(modInfo);
+                lblLoad.Text += "|";
+                if (lblLoad.Text.TakeWhile(c => c == '|').Count() > 10)
+                {
+                    lblLoad.Text = "Reloading: ";
+                }
+                lblLoad.Refresh();
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(500);
+            }
+            lblLoad.Text = "Reloaded";
+
+            printLongView();
+        }
+
+        private void reloadButtonClick(object sender, EventArgs e)
+        {
+            reloadModList();
+        }
+
+        private void printLongView() {
             txtOutRAW.Clear();
             txtOut.Clear();
-            foreach (ModInfo MI in ModList)
+            foreach (ModInfo mi in modList)
             {
-                txtOutRAW.AppendText(MI.ID + "\r\n");
+                txtOutRAW.AppendText(mi.ID + "\r\n");
                 StringBuilder tOut = new StringBuilder();
-                tOut.Append("ModID: " + MI.ID + "       ");
-                tOut.Append("ModName: " + MI.title + "      ");
-                tOut.Append("Workshop URL: " + MI.URL + "\r\n");
+                tOut.Append("ModID: " + mi.ID + "       ");
+                tOut.Append("ModName: " + mi.title + "      ");
+                tOut.Append("Workshop URL: " + mi.URL + "\r\n");
                 txtOut.AppendText(tOut.ToString());
             }
         }
 
-        private void ForumUrlButtonClick(object sender, EventArgs e)
-        {
+        private void printForumView() {
             txtOutRAW.Clear();
             txtOut.Clear();
-            foreach (ModInfo MI in ModList)
+            foreach (ModInfo mi in modList)
             {
-                txtOutRAW.AppendText(MI.ID + "\r\n");
+                txtOutRAW.AppendText(mi.ID + "\r\n");
                 StringBuilder tOut = new StringBuilder();
 
                 tOut.Append("[URL=")
-                    .Append(MI.URL)
+                    .Append(mi.URL)
                     .Append("]")
-                    .Append(MI.title)
+                    .Append(mi.title)
                     .Append("[/URL]")
                     .Append(Environment.NewLine);
                 txtOut.AppendText(tOut.ToString());
             }
         }
-
-        
-
-        
 
     }
 
