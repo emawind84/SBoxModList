@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnOpen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtOutRAW = new System.Windows.Forms.RichTextBox();
@@ -169,6 +170,7 @@
             this.Controls.Add(this.txtOutRAW);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOpen);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "SBCModView";
             this.flowLayoutPanel1.ResumeLayout(false);
