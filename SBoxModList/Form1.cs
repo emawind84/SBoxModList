@@ -12,7 +12,7 @@ namespace SBoxModList
 
     public partial class Form1 : Form
     {
-        
+        private const string SteamWorkshopPrefix = "Steam Workshop::";
         OpenFileDialog ofd = new OpenFileDialog();
         WebTimeout web = new WebTimeout();
         XPathDocument sbcFile;
@@ -184,7 +184,7 @@ namespace SBoxModList
                     string workshopPage = web.DownloadString(modInfo.URL);
                     System.Threading.Thread.Sleep(500);
                     modInfo.title = Regex.Match(workshopPage, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                    modInfo.title = modInfo.title.Replace("Steam Workshop :: ", "");
+                    modInfo.title = modInfo.title.Replace(SteamWorkshopPrefix, "");
                     if (failcount > 0) failcount = 0;
 
                 }
@@ -260,6 +260,27 @@ namespace SBoxModList
             }
         }
 
+        private void printDiscordView()
+        {
+            txtOutRAW.Clear();
+            txtOut.Clear();
+            foreach (ModInfo mi in modList)
+            {
+                txtOutRAW.AppendText(mi.ID + "\r\n");
+                StringBuilder tOut = new StringBuilder();
+
+                tOut.Append(mi.title)
+                    .Append(" - ")
+                    .Append(mi.URL)
+                    .Append(Environment.NewLine);
+                txtOut.AppendText(tOut.ToString());
+            }
+        }
+
+        private void discordViewOnClick(object sender, EventArgs e)
+        {
+            printDiscordView();
+        }
     }
 
     public class WebTimeout : WebClient
